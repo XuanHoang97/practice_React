@@ -1,11 +1,45 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ReactPaginate from "react-paginate";
+import './pagination.scss';
 
 const GithubSearch= () => {
-    // const [git, setGithub] = useState([]);
     const [git, setGithub] = useState(JSON.parse(localStorage.getItem('github')) || {});
     const [query, setQuery] = useState('');
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const gitPerPage = 4;
+    const pagesVisited = pageNumber * gitPerPage;
+
+    const displayGit = git
+    .slice(pagesVisited, pagesVisited + gitPerPage)
+    .map((item, index) => {
+      return (
+        <div className= "git-result d-flex my-3 align-items-center justify-content-between" key={index}>
+            <div className="d-flex">
+                <p className="">#{index + 1}</p>
+                <img src={item.avatar} alt="no display" className=" rounded-circle mx-4" style ={{width: '70px'}}  />
+
+                <div className="">
+                    <div className="font-weight-bold text-success"> {item.username} </div>
+                    <a href={item.link} target="__blank" className="text-primary">
+                        Github Link
+                    </a>
+                </div>
+            </div>
+            <button className="btn-sm btn btn-primary">
+                <Link to={`/detail/${item.username}`} className="text-white"> Detail </Link>
+            </button>
+        </div>
+      );
+    });
+
+    const pageCount = Math.ceil(git.length / gitPerPage);
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
+    };
 
     const handleSearch = async() => {
         let res = await axios({
@@ -60,30 +94,18 @@ const GithubSearch= () => {
                 Tìm thấy {git.length} kết quả cho từ khóa <span className = "h6 text-success">"{query}"</span> 
             </div>
 
-            {
-                git && git.length > 0
-                ? git.map((item, index) => {
-                    return(
-                        <div className= "git-result d-flex my-3 align-items-center justify-content-between" key={index}>
-                            <div className="d-flex">
-                                <p className="">#{index + 1}</p>
-                                <img src={item.avatar} alt="no display" className=" rounded-circle mx-4" style ={{width: '70px'}}  />
-
-                                <div className="">
-                                    <div className="font-weight-bold text-success"> {item.username} </div>
-                                    <a href={item.link} target="__blank" className="text-primary">
-                                        Github Link
-                                    </a>
-                                </div>
-                            </div>
-                            <button className="btn-sm btn btn-primary">
-                                <Link to={`/detail/${item.username}`} className="text-white"> Detail </Link>
-                            </button>
-                        </div>
-                    )
-                }) : <span className="text-danger"> 'Khong tim thay user nao, vui long thu lai !'</span>
-            }
-
+            {displayGit}
+            <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={"paginationBttns"}
+                previousLinkClassName={"previousBttn"}
+                nextLinkClassName={"nextBttn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+            />
         </div>
     );
 }

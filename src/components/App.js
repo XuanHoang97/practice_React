@@ -1,6 +1,5 @@
 import React from "react";
 import "./../assets/style/App.scss";
-import Menu from './Menu';
 import Header from './Header';
 import Mobile from './Mobile';
 import Detail from "pages/Detail";
@@ -30,7 +29,6 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <Menu />
         <ToastContainer autoClose={3000} />
         <Switch>
           <Route exact path="/"><Mobile /></Route>

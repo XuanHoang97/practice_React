@@ -12,6 +12,7 @@ function Header(props) {
                 <li><NavLink to="/search" activeClassName="active">Youtube</NavLink></li>
                 <li><NavLink to="/searchGit" activeClassName="active">GitHub</NavLink></li>
                 <li><NavLink to="/searchFb" activeClassName="active">FaceBook</NavLink></li>
+                <li><NavLink to="/tiki" activeClassName="active">Tiki</NavLink></li>
             </ul>
         </div>
     );
