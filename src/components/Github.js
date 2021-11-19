@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from "react-paginate";
 import './pagination.scss';
 
-const GithubSearch= () => {
+const Github= () => {
     const [git, setGithub] = useState(JSON.parse(localStorage.getItem('github')) || {});
     const [query, setQuery] = useState('');
 
@@ -110,4 +110,4 @@ const GithubSearch= () => {
     );
 }
 
-export default GithubSearch;
+export default Github;

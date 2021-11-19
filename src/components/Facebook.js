@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function FacebookSearch(props) {
+function Facebook(props) {
     const [fb, setFb] = useState(JSON.parse(localStorage.getItem('facebook')) || {});
     const [query, setQuery] = useState('');
 
@@ -65,4 +65,4 @@ function FacebookSearch(props) {
     );
 }
 
-export default FacebookSearch;
+export default Facebook;

@@ -4,7 +4,7 @@ import moment from 'moment';
 import ReactPaginate from "react-paginate";
 import './pagination.scss';
 
-const YoutubeSearch = () => {
+const Youtube = () => {
     const [video, setVideo] = useState(JSON.parse(localStorage.getItem('youtube')) || {});
     const [query, setQuery] = useState('')
     ;
@@ -73,6 +73,7 @@ const YoutubeSearch = () => {
                 });
             }
             setVideo(result);
+            // setQuery('');
             localStorage.setItem('youtube', JSON.stringify(result));
         }
     }
@@ -96,7 +97,7 @@ const YoutubeSearch = () => {
                     <button onClick = {handleSearchYoutube}  className="btn btn-success" type="submit"><i className="fas fa-search"></i></button>  
                 </div>
             </div>
-
+        
             <div className="length-result">
                 Tìm thấy {video.length} kết quả cho từ khóa <span className = "h6 text-success">"{query}"</span> 
             </div>
@@ -117,4 +118,4 @@ const YoutubeSearch = () => {
     );
 }
 
-export default YoutubeSearch;
+export default Youtube;
